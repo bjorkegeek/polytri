@@ -1,7 +1,7 @@
 import setuptools
 
 setuptools.setup(name='polytri',
-                 version='1.0.2',
+                 version='1.0.3',
                  description='Polygon triangulation algorithm',
                  long_description=open('README.md').read().strip(),
                  author='David Bj\xf6rkevik',
