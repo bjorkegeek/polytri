@@ -166,10 +166,16 @@ def triangulate(polygon):
         if i >= len(polygon):
             raise ValueError("Triangulation failed")
         (a, b, c) = looped_slice(polygon, i, 3)
+        triangle = (a, b, c)
+        if ((a == b).all() or (b == c).all()):
+            # Duplicate vertex, just skip
+            del polygon[(i + 1) % len(polygon)]
+            continue
+
         x = np.cross(c - b, b - a)
         dot = np.dot(normal, x)
         yld = False
-        if dot >= 0:
+        if dot > 1E-6:
             triangle = (a, b, c)
             if not any_point_in_triangle(triangle,
                                          looped_slice_inv(polygon, i, 3)):

@@ -78,3 +78,14 @@ class TestTriangulate(unittest.TestCase):
                        for tri in tris_3d]
             self.assertEqual(check_equality_issues(self.big_poly, tris_2d), [])
 
+    def test_bad_case(self):
+        poly = [[-14, -5, 0.],
+                [-11, 9, 0.],
+                [-11, 9, 0.],
+                [14, 5, 0.],
+                [11, -9, 0.],
+                [-14, -5, 0.]]
+        poly2d = [(x, y) for x, y, _ in poly]
+        tris = list(triangulate(poly))
+        tris2d = [[(x, y) for x, y, _ in coords] for coords in tris]
+        self.assertEqual(check_equality_issues(poly2d, tris2d), [])
