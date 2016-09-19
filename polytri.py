@@ -161,7 +161,6 @@ def triangulate(polygon):
     polygon = [np.array(x) for x in polygon]
 
     normal = calculate_normal(polygon)
-    print("normal", normal)
     i = 0
     while len(polygon) > 2:
         if i >= len(polygon):
@@ -169,7 +168,6 @@ def triangulate(polygon):
         (a, b, c) = looped_slice(polygon, i, 3)
         x = np.cross(c - b, b - a)
         dot = np.dot(normal, x)
-        print(i, a, b, c, x, dot)
         yld = False
         if dot >= 0:
             triangle = (a, b, c)
@@ -177,12 +175,7 @@ def triangulate(polygon):
                                          looped_slice_inv(polygon, i, 3)):
                 del polygon[(i + 1) % len(polygon)]
                 yield triangle
-                print("yield", a, b, c, len(polygon))
                 i = 0
                 yld = True
-            else:
-                print("Contains point")
-        else:
-            print("Convex")
         if not yld:
             i += 1
