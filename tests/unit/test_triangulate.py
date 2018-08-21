@@ -89,3 +89,22 @@ class TestTriangulate(unittest.TestCase):
         tris = list(triangulate(poly))
         tris2d = [[(x, y) for x, y, _ in coords] for coords in tris]
         self.assertEqual(check_equality_issues(poly2d, tris2d), [])
+
+    def test_issue_1(self):
+        poly = [
+            [1.0000, -0.5000, 1.0000],
+            [0.7500, -0.4330, 1.0000],
+            [0.5670, -0.2500, 1.0000],
+            [0.5000, 0.0000, 1.0000],
+            [0.5670, 0.2500, 1.0000],
+            [0.7500, 0.4330, 1.0000],
+            [1.0000, 0.5000, 1.0000],
+            [1.0000, 1.0000, 1.0000],
+            [-1.0000, 1.0000, 1.0000],
+            [-1.0000, -1.0000, 1.0000],
+            [1.0000, -1.0000, 1.0000]]
+        tris = list(triangulate(poly))
+
+        poly2d = [(x, y) for x, y, _ in poly]
+        tris2d = [[(x, y) for x, y, _ in coords] for coords in tris]
+        self.assertEqual(check_equality_issues(poly2d, tris2d), [])
